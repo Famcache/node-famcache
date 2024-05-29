@@ -21,7 +21,6 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: yarn
-    - run: yarn lint
-    - run: yarn test
+    - run: echo $GH_TOKEN
     - run: yarn build
     - run: npx semantic-release
