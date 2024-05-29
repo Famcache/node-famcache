@@ -62,7 +62,7 @@ class Famcache {
 
       this.socket.write(set(queryId, key, value, ttl));
 
-      this.queue.set(queryId, { resolve, reject });
+      this.queue.set(queryId, { resolve: () => resolve(), reject });
     });
   }
 
@@ -72,7 +72,10 @@ class Famcache {
 
       this.socket.write(get(queryId, key));
 
-      this.queue.set(queryId, { resolve, reject });
+      this.queue.set(queryId, {
+        resolve: (data) => resolve(data as T),
+        reject,
+      });
     });
   }
 
@@ -82,7 +85,7 @@ class Famcache {
 
       this.socket.write(del(queryId, key));
 
-      this.queue.set(queryId, { resolve, reject });
+      this.queue.set(queryId, { resolve: () => resolve(), reject });
     });
   }
 }

@@ -10,7 +10,7 @@ class CacheQuery {
     const [id, status, ...rest] = data.split(' ');
 
     return new CacheQuery(id, status as QueryStatus, rest.join(' '));
-  };
+  }
 
   constructor(id: string, status: QueryStatus, data: string) {
     this.id = id;

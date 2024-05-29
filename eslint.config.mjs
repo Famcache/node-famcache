@@ -10,4 +10,10 @@ export default [
   { languageOptions: { globals: globals.node } },
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
+  {
+    files: ['**/*.spec.ts'],
+    env: {
+      jest: true,
+    },
+  },
 ];

@@ -1,4 +1,6 @@
+export type Optional<T> = T | null | undefined | void;
+
 export type QueueResolver = {
-  resolve: (value: any) => void;
-  reject: (reason: any) => void;
-}
+  resolve: (value: Optional<string>) => void;
+  reject: (reason: Optional<string>) => void;
+};
