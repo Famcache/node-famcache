@@ -1,0 +1,12 @@
+src
+node_modules
+example
+.github
+.gitignore
+.prettierrc
+.prettierignore
+eslint.config.mjs
+jest.config.js
+release.config.cjs
+settings.json
+tsconfig.json

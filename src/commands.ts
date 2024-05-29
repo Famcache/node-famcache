@@ -1,11 +1,22 @@
-export function get(key: string): string {
-  return `GET ${key}`;
+export function get(id: string, key: string): string {
+  return `${id} GET ${key}\n`;
 }
 
-export function set(key: string, value: string, ttl?: number): string {
-  return `SET ${key} ${value} ${ttl}`;
+export function set(
+  id: string,
+  key: string,
+  value: string,
+  ttl?: number,
+): string {
+  const args = [key, value];
+
+  if (ttl) {
+    args.push(ttl.toString());
+  }
+
+  return `${id} SET ${args.join(' ')}\n`;
 }
 
-export function del(key: string): string {
-  return `DEL ${key}`;
+export function del(id: string, key: string): string {
+  return `${id} DEL ${key}\n`;
 }
