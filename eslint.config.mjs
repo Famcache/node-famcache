@@ -12,8 +12,8 @@ export default [
   ...tseslint.configs.recommended,
   {
     files: ['**/*.spec.ts'],
-    env: {
-      jest: true,
-    },
+    languageOptions: {
+      globals: globals.jest
+    }
   },
 ];

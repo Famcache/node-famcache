@@ -21,5 +21,7 @@ describe('commands', () => {
 
   it('should generate del command', () => {
     const command = del('1', 'key');
+
+    expect(command).toBe('1 DEL key\n');
   });
 });
