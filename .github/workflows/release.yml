@@ -7,11 +7,10 @@ on:
   push:
     branches: [ "main" ]
 
-permissions: write-all
-
 jobs:
   release:
     env:
+      GH_TOKEN: ${{ secrets.GH_TOKEN }}
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     runs-on: ubuntu-latest
     strategy:
