@@ -18,5 +18,5 @@ export function set(
 }
 
 export function del(id: string, key: string): string {
-  return `${id} DEL ${key}\n`;
+  return `${id} DELETE ${key}\n`;
 }
