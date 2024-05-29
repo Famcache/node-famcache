@@ -13,7 +13,7 @@ export default [
   {
     files: ['**/*.spec.ts'],
     languageOptions: {
-      globals: globals.jest
-    }
+      globals: globals.jest,
+    },
   },
 ];

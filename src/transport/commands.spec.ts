@@ -1,4 +1,4 @@
-import { set, get, del } from "./commands";
+import { set, get, del } from './commands';
 
 describe('commands', () => {
   it('should generate get command', () => {

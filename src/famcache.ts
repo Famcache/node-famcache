@@ -1,9 +1,8 @@
 import { Socket } from 'net';
 import { randomUUID } from 'crypto';
 import type { ConnectionParams } from './params';
-import { get, set, del } from './commands';
 import type { QueueResolver } from './types';
-import CacheQuery from './cache-query';
+import { CacheQuery, get, set, del } from './transport';
 
 class Famcache {
   private socket: Socket;

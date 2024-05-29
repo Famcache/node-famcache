@@ -5,7 +5,7 @@ name: Release
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ['main']
 
 permissions: write-all
 
@@ -19,13 +19,13 @@ jobs:
       matrix:
         node-version: [21.x]
     steps:
-    - uses: actions/checkout@v4
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: yarn
-    - run: echo $GH_TOKEN
-    - run: yarn build
-    - run: npx semantic-release
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: yarn
+      - run: echo $GH_TOKEN
+      - run: yarn build
+      - run: npx semantic-release

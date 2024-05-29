@@ -1,6 +1,6 @@
 type QueryStatus = 'OK' | 'ERROR';
 
-class CacheQuery {
+export class CacheQuery {
   public id: string;
   private status: QueryStatus;
 
@@ -26,5 +26,3 @@ class CacheQuery {
     return this.status === 'ERROR';
   }
 }
-
-export default CacheQuery;
