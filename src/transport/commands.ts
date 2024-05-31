@@ -20,3 +20,15 @@ export function set(
 export function del(id: string, key: string): string {
   return `${id} DELETE ${key}\n`;
 }
+
+export function publish(id: string, topic: string, data: string): string {
+  return `${id} PUBLISH ${topic} ${data}\n`;
+}
+
+export function subscribe(id: string, topic: string): string {
+  return `${id} SUBSCRIBE ${topic}\n`;
+}
+
+export function unsubscribe(id: string, topic: string): string {
+  return `${id} UNSUBSCRIBE ${topic}\n`;
+}

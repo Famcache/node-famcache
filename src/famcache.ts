@@ -1,17 +1,28 @@
 import { Socket } from 'net';
 import { randomUUID } from 'crypto';
 import type { ConnectionParams } from './params';
-import type { QueueResolver } from './types';
-import { CacheQuery, get, set, del } from './transport';
+import type { QueueResolver, SubscribeCallback } from './types';
+import {
+  CacheQuery,
+  get,
+  set,
+  del,
+  publish,
+  unsubscribe,
+  subscribe,
+  Messaging,
+} from './transport';
 
 class Famcache {
   private socket: Socket;
   private params: ConnectionParams;
   private queue: Map<string, QueueResolver>;
+  private listeners: Map<string, SubscribeCallback[]>;
 
   constructor(params: ConnectionParams) {
     this.socket = new Socket();
     this.queue = new Map();
+    this.listeners = new Map();
 
     this.params = params;
   }
@@ -23,6 +34,20 @@ class Famcache {
   private listen() {
     this.socket.on('data', (data) => {
       const payload = data.toString();
+
+      if (Messaging.isMessagingEvent(payload)) {
+        const message = Messaging.fromEvent(payload);
+
+        if (!this.listeners.has(message.topic)) {
+          return;
+        }
+
+        this.listeners
+          .get(message.topic)
+          ?.forEach((callback) => callback(message.data));
+        return;
+      }
+
       const query = CacheQuery.fromString(payload);
 
       const resolver = this.queue.get(query.id);
@@ -86,6 +111,32 @@ class Famcache {
 
       this.queue.set(queryId, { resolve: () => resolve(), reject });
     });
+  }
+
+  publish(topic: string, data: string) {
+    const queryId = this.genId();
+
+    this.socket.write(publish(queryId, topic, data));
+  }
+
+  subscribe(topic: string, callback: SubscribeCallback) {
+    const queryId = this.genId();
+
+    this.socket.write(subscribe(queryId, topic));
+
+    const listeners = this.listeners.get(topic);
+
+    if (!listeners) {
+      this.listeners.set(topic, [callback]);
+    } else {
+      listeners.push(callback);
+    }
+  }
+
+  unsubscribe(topic: string) {
+    const queryId = this.genId();
+
+    this.socket.write(unsubscribe(queryId, topic));
   }
 }
 
