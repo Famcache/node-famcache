@@ -2,7 +2,7 @@ import { Socket } from 'net';
 import { randomUUID } from 'crypto';
 import type { ConnectionParams } from './params';
 import type { QueueResolver } from './types';
-import { CacheQuery, get, set, del } from './transport';
+import { CacheQuery, get, set, del, publish } from './transport';
 
 class Famcache {
   private socket: Socket;
@@ -86,6 +86,12 @@ class Famcache {
 
       this.queue.set(queryId, { resolve: () => resolve(), reject });
     });
+  }
+
+  publish(topic: string, data: string) {
+    const queryId = this.genId();
+
+    this.socket.write(publish(queryId, topic, data));
   }
 }
 
