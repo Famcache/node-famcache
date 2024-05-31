@@ -5,5 +5,4 @@ export type QueueResolver = {
   reject: (reason: Optional<string>) => void;
 };
 
-
 export type SubscribeCallback = (data: string) => void;

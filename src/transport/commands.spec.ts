@@ -35,5 +35,5 @@ describe('commands', () => {
     const command = unsubscribe('1', 'key');
 
     expect(command).toBe('1 UNSUBSCRIBE key\n');
-  })
+  });
 });

@@ -23,9 +23,8 @@ To install Node-famcache, use npm:
 npm install @famcache/famcache
 ```
 
-
-
 ## Usage
+
 ### Connecting to the Server
 
 First, import the module and create a client instance:
@@ -34,14 +33,15 @@ First, import the module and create a client instance:
 import Famcache from '@famcache/famcache';
 
 const client = new FamcacheClient({
-    host: 'localhost',
-    port: 3577
+  host: 'localhost',
+  port: 3577,
 });
 ```
 
 ### Basic Operations
 
 #### Set a Value
+
 To store a value in the cache:
 
 ```ts
@@ -49,6 +49,7 @@ await client.set('key', 'value', 30000);
 ```
 
 #### Get a Value
+
 To retrieve a value from the cache:
 
 ```ts
@@ -56,6 +57,7 @@ const value = await client.get('key');
 ```
 
 #### Delete a Value
+
 To delete a value from the cache:
 
 ```ts
@@ -94,9 +96,10 @@ Deletes a value from the cache.
 
 - **key** (string): The key of the value to delete.
 
-
 # Contributing
+
 Contributions are welcome! Please open an issue or submit a pull request on GitHub.
 
 # License
+
 Node-famcache is licensed under the MIT License. See the [LICENSE](./LICENSE) file for more details.

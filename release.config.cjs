@@ -8,7 +8,7 @@ module.exports = {
     '@semantic-release/changelog',
     '@semantic-release/release-notes-generator',
     '@semantic-release/npm',
-    "@semantic-release/git",
+    '@semantic-release/git',
     '@semantic-release/github',
   ],
 };

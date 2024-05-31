@@ -2,13 +2,22 @@ import { Socket } from 'net';
 import { randomUUID } from 'crypto';
 import type { ConnectionParams } from './params';
 import type { QueueResolver, SubscribeCallback } from './types';
-import { CacheQuery, get, set, del, publish, unsubscribe, subscribe, Messaging } from './transport';
+import {
+  CacheQuery,
+  get,
+  set,
+  del,
+  publish,
+  unsubscribe,
+  subscribe,
+  Messaging,
+} from './transport';
 
 class Famcache {
   private socket: Socket;
   private params: ConnectionParams;
   private queue: Map<string, QueueResolver>;
-  private listeners: Map<string, SubscribeCallback[]>
+  private listeners: Map<string, SubscribeCallback[]>;
 
   constructor(params: ConnectionParams) {
     this.socket = new Socket();
@@ -33,7 +42,9 @@ class Famcache {
           return;
         }
 
-        this.listeners.get(message.topic)?.forEach((callback) => callback(message.data));
+        this.listeners
+          .get(message.topic)
+          ?.forEach((callback) => callback(message.data));
         return;
       }
 
@@ -111,7 +122,7 @@ class Famcache {
   subscribe(topic: string, callback: SubscribeCallback) {
     const queryId = this.genId();
 
-    this.socket.write(subscribe(queryId, topic))
+    this.socket.write(subscribe(queryId, topic));
 
     const listeners = this.listeners.get(topic);
 
@@ -127,7 +138,6 @@ class Famcache {
 
     this.socket.write(unsubscribe(queryId, topic));
   }
-
 }
 
 export default Famcache;
