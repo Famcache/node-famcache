@@ -2,7 +2,7 @@ import { Socket } from 'net';
 import { randomUUID } from 'crypto';
 import type { ConnectionParams } from './params';
 import type { QueueResolver } from './types';
-import { CacheQuery, get, set, del, publish } from './transport';
+import { CacheQuery, get, set, del, publish, unsubscribe } from './transport';
 
 class Famcache {
   private socket: Socket;
@@ -92,6 +92,12 @@ class Famcache {
     const queryId = this.genId();
 
     this.socket.write(publish(queryId, topic, data));
+  }
+
+  unsubscribe(topic: string) {
+    const queryId = this.genId();
+
+    this.socket.write(unsubscribe(queryId, topic));
   }
 }
 
