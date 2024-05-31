@@ -1,5 +1,13 @@
 # Node-famcache
 
+![NPM Downloads](https://img.shields.io/npm/dw/%40famcache%2Ffamcache)
+![NPM Version](https://img.shields.io/npm/v/%40famcache%2Ffamcache)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/famcache/node-famcache/lint_and_test.yml)
+![TypeScript Badge](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=fff&style=flat)
+
+
+
+
 Node-famcache is a Node.js client for Famcache, a caching server written in Go. This client allows you to interact with the Famcache server from your Node.js applications, providing an easy-to-use interface for caching operations.
 
 ## Table of Contents
