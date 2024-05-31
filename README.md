@@ -11,6 +11,9 @@ Node-famcache is a Node.js client for Famcache, a caching server written in Go. 
     - [Set a Value](#set-a-value)
     - [Get a Value](#get-a-value)
     - [Delete a Value](#delete-a-value)
+    - [Publish a topic](#publish-a-topic)
+    - [Subscribe to the topic](#subscribe-to-the-topic)
+    - [Unsubscribe from the topic](#unsubscribe-from-the-topic)
 - [API Reference](#api-reference)
 - [Contributing](#contributing)
 - [License](#license)
@@ -64,6 +67,30 @@ To delete a value from the cache:
 await client.del('key');
 ```
 
+
+#### Publish a topic
+
+To publish data to the topic:
+```ts
+client.publish('topic', 'data');
+```
+
+#### Subscribe to the topic
+
+To subscribe to the topic:
+```ts
+client.subscribe('topic', (data) => {
+  // ...
+});
+```
+
+#### Unsubscribe from the topic
+
+To unsubscribe from the topic:
+```ts
+client.unsubscribe('topic');
+```
+
 ## API Reference
 
 ### `FamcacheClient`
@@ -94,7 +121,26 @@ Gets a value from the cache.
 
 Deletes a value from the cache.
 
-- **key** (string): The key of the value to delete.
+#### `client.publish(topic, data)`
+
+Publishes data to the topic
+
+- **topic** (string): Topic name
+- **data** (string): Payload that will be send to the subscribers
+
+#### `client.subscribe(topic, callback)`
+
+Subscribes to the topic
+
+- **topic** (string): Topic name
+- **callback** (Function): Callback function that will be invoked when message will be received for this topic
+
+
+#### `client.unsubscribe(topic)`
+
+Unsubscribes from the topic
+
+- **topic** (string): Topic name
 
 # Contributing
 
