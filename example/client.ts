@@ -1,18 +1,22 @@
 import Famcache from '../src';
 
-const cache = new Famcache({
+const client = new Famcache({
   host: 'localhost',
   port: 3577,
 });
 
-cache
+client
   .connect()
   .then(() => {
     console.log('Connected!');
 
-    cache.set('key', '10', 3000)
+    client.subscribe('topic1', (data) => {
+      console.log('topic1 received data: ', data);
+    });
+
+    client.set('key', '10', 3000)
       .then(() => {
-        return cache.get('key');
+        return client.get('key');
       })
       .then((data) => {
         console.log('Received', data);
@@ -21,3 +25,4 @@ cache
   .catch((e) => {
     console.log('Failed to connect');
   });
+
