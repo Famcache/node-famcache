@@ -1,0 +1,20 @@
+name: "PR Labeler"
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+jobs:
+  labeler:
+    permissions:
+      contents: read
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/labeler@v5
+      with:
+        repo-token: ${{ secrets.GH_TOKEN }}
+        configuration-path: .github/label-config.yml

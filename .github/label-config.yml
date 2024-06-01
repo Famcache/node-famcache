@@ -1,0 +1,28 @@
+documentation:
+  - changed-files:
+      - any-glob-to-any-file: ["*.md", "example/**/*"]
+
+cache:
+  - changed-files:
+      - any-glob-to-any-file: ["src/transport/cache-query.ts"]
+
+messaging:
+  - changed-files:
+      - any-glob-to-any-file: ["src/transport/messaging.ts"]
+
+ci:
+  - changed-files:
+      - any-glob-to-any-file: [".github/**/*", "release.config.cjs"]
+core:
+  - changed-files:
+      - any-glob-to-any-file:
+          ["src/famcache.ts", "src/index.ts", "package.json"]
+
+feature:
+  - head-branch: ["^feature", "feature"]
+
+fix:
+  - head-branch: ["^fix", "fix"]
+
+chore:
+  - head-branch: ["^chore", "chore"]
