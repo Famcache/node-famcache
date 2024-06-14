@@ -1,12 +1,12 @@
-export class Messaging {
+export class MessagingEvent {
   static isMessagingEvent(event: string): boolean {
     return event.startsWith('MESSAGE ');
   }
 
-  static fromEvent(event: string): Messaging {
+  static fromEvent(event: string): MessagingEvent {
     const [, topic, data] = event.split(' ');
 
-    return new Messaging(topic, data);
+    return new MessagingEvent(topic, data);
   }
 
   public topic: string;
@@ -16,4 +16,5 @@ export class Messaging {
     this.topic = topic;
     this.data = data;
   }
+
 }

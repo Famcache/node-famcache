@@ -1,3 +1,3 @@
 export * from './cache-query';
 export * from './commands';
-export * from './messaging';
+export * from './messaging-event';

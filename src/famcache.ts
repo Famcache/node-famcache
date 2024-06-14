@@ -1,28 +1,28 @@
 import { Socket } from 'net';
 import { randomUUID } from 'crypto';
 import type { ConnectionParams } from './params';
-import type { QueueResolver, SubscribeCallback } from './types';
+import type { IMessaging, QueueResolver, SubscribeCallback } from './types';
 import {
   CacheQuery,
   get,
   set,
   del,
-  publish,
-  unsubscribe,
-  subscribe,
-  Messaging,
+  MessagingEvent,
 } from './transport';
+import { Messaging } from './modules';
 
 class Famcache {
   private socket: Socket;
   private params: ConnectionParams;
   private queue: Map<string, QueueResolver>;
   private listeners: Map<string, SubscribeCallback[]>;
+  public mesaging: IMessaging;
 
   constructor(params: ConnectionParams) {
     this.socket = new Socket();
     this.queue = new Map();
     this.listeners = new Map();
+    this.mesaging = new Messaging(this.socket);
 
     this.params = params;
   }
@@ -35,8 +35,8 @@ class Famcache {
     this.socket.on('data', (data) => {
       const payload = data.toString();
 
-      if (Messaging.isMessagingEvent(payload)) {
-        const message = Messaging.fromEvent(payload);
+      if (MessagingEvent.isMessagingEvent(payload)) {
+        const message = MessagingEvent.fromEvent(payload);
 
         if (!this.listeners.has(message.topic)) {
           return;
@@ -111,32 +111,6 @@ class Famcache {
 
       this.queue.set(queryId, { resolve: () => resolve(), reject });
     });
-  }
-
-  publish(topic: string, data: string) {
-    const queryId = this.genId();
-
-    this.socket.write(publish(queryId, topic, data));
-  }
-
-  subscribe(topic: string, callback: SubscribeCallback) {
-    const queryId = this.genId();
-
-    this.socket.write(subscribe(queryId, topic));
-
-    const listeners = this.listeners.get(topic);
-
-    if (!listeners) {
-      this.listeners.set(topic, [callback]);
-    } else {
-      listeners.push(callback);
-    }
-  }
-
-  unsubscribe(topic: string) {
-    const queryId = this.genId();
-
-    this.socket.write(unsubscribe(queryId, topic));
   }
 }
 
