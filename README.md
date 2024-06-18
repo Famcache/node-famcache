@@ -80,14 +80,14 @@ await client.del('key');
 
 To publish data to the topic:
 ```ts
-client.publish('topic', 'data');
+client.messaging.publish('topic', 'data');
 ```
 
 #### Subscribe to the topic
 
 To subscribe to the topic:
 ```ts
-client.subscribe('topic', (data) => {
+client.messaging.subscribe('topic', (data) => {
   // ...
 });
 ```
@@ -96,7 +96,7 @@ client.subscribe('topic', (data) => {
 
 To unsubscribe from the topic:
 ```ts
-client.unsubscribe('topic');
+client.messaging.unsubscribe('topic');
 ```
 
 ## API Reference
@@ -129,14 +129,14 @@ Gets a value from the cache.
 
 Deletes a value from the cache.
 
-#### `client.publish(topic, data)`
+#### `client.messaging.publish(topic, data)`
 
 Publishes data to the topic
 
 - **topic** (string): Topic name
 - **data** (string): Payload that will be send to the subscribers
 
-#### `client.subscribe(topic, callback)`
+#### `client.messaging.subscribe(topic, callback)`
 
 Subscribes to the topic
 
@@ -144,7 +144,7 @@ Subscribes to the topic
 - **callback** (Function): Callback function that will be invoked when message will be received for this topic
 
 
-#### `client.unsubscribe(topic)`
+#### `client.messaging.unsubscribe(topic)`
 
 Unsubscribes from the topic
 

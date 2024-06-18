@@ -1,7 +1,7 @@
 import { Socket } from 'net';
 import { randomUUID } from 'crypto';
 import type { ConnectionParams } from './params';
-import type { IMessaging, QueueResolver, SubscribeCallback } from './types';
+import type { IMessaging, QueueResolver } from './types';
 import {
   CacheQuery,
   get,
@@ -15,14 +15,12 @@ class Famcache {
   private socket: Socket;
   private params: ConnectionParams;
   private queue: Map<string, QueueResolver>;
-  private listeners: Map<string, SubscribeCallback[]>;
-  public mesaging: IMessaging;
+  public messaging: IMessaging;
 
   constructor(params: ConnectionParams) {
     this.socket = new Socket();
     this.queue = new Map();
-    this.listeners = new Map();
-    this.mesaging = new Messaging(this.socket);
+    this.messaging = new Messaging(this.socket);
 
     this.params = params;
   }
@@ -38,13 +36,7 @@ class Famcache {
       if (MessagingEvent.isMessagingEvent(payload)) {
         const message = MessagingEvent.fromEvent(payload);
 
-        if (!this.listeners.has(message.topic)) {
-          return;
-        }
-
-        this.listeners
-          .get(message.topic)
-          ?.forEach((callback) => callback(message.data));
+        (this.messaging as Messaging).trigger(message);
         return;
       }
 

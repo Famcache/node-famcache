@@ -1,11 +1,11 @@
 import { randomUUID } from "crypto";
 import { Socket } from "net";
-import { publish, subscribe, unsubscribe } from "../transport";
+import { MessagingEvent, publish, subscribe, unsubscribe } from "../transport";
 import { IMessaging, SubscribeCallback } from "../types";
 
 export class Messaging implements IMessaging {
     private socket: Socket;
-    private listeners: Map<string, SubscribeCallback[]>;
+    public listeners: Map<string, SubscribeCallback[]>;
 
     constructor(socket: Socket) {
         this.socket = socket;
@@ -40,5 +40,13 @@ export class Messaging implements IMessaging {
         const queryId = this.genId();
 
         this.socket.write(unsubscribe(queryId, topic));
+    }
+
+    trigger(message: MessagingEvent) {
+        if (!this.listeners.has(message.topic)) {
+            return;
+        }
+        this.listeners.get(message.topic)
+            ?.forEach((callback) => callback(message.data));
     }
 }
