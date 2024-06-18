@@ -1,3 +1,24 @@
+# [2.0.0](https://github.com/Famcache/node-famcache/compare/v1.5.0...v2.0.0) (2024-06-18)
+
+
+### Bug Fixes
+
+* **Messaging:** Fix memory leak on unsubscribe ([b0075ac](https://github.com/Famcache/node-famcache/commit/b0075ac82e3f76d5833501f482af4d068111ccee))
+* **Messaging:** fix messaging publish, subscribe, unsubscribe ([85327c8](https://github.com/Famcache/node-famcache/commit/85327c81b6b2892240a06c3998ce70e8404c23aa))
+
+
+* Merge pull request #6 from Famcache/refactor/messaging ([c5df836](https://github.com/Famcache/node-famcache/commit/c5df83650b14052d0da052dac64cd40192b8d5e7)), closes [#6](https://github.com/Famcache/node-famcache/issues/6)
+
+
+### Features
+
+* **Messaging:** Moved messaging related methods to separate module ([4636c30](https://github.com/Famcache/node-famcache/commit/4636c30703711abc25248cb513041ebda8ccfdeb))
+
+
+### BREAKING CHANGES
+
+* Moved messaging related methods to separate module
+
 # [1.5.0](https://github.com/Famcache/node-famcache/compare/v1.4.1...v1.5.0) (2024-05-31)
 
 
