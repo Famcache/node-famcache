@@ -6,3 +6,9 @@ export type QueueResolver = {
 };
 
 export type SubscribeCallback = (data: string) => void;
+
+export type IMessaging = {
+  publish(topic: string, data: string): void;
+  subscribe(topic: string, callback: SubscribeCallback): void;
+  unsubscribe(topic: string): void;
+}
