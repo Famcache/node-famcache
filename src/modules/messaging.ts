@@ -40,6 +40,8 @@ export class Messaging implements IMessaging {
         const queryId = this.genId();
 
         this.socket.write(unsubscribe(queryId, topic));
+
+        this.listeners.delete(topic);
     }
 
     trigger(message: MessagingEvent) {

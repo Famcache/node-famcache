@@ -93,7 +93,7 @@ client.messaging.subscribe('topic', (data) => {
 ```
 
 #### Unsubscribe from the topic
-
+  
 To unsubscribe from the topic:
 ```ts
 client.messaging.unsubscribe('topic');
